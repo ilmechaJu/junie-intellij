@@ -1,14 +1,12 @@
-# Junie Setting을 통한 guideline.md 생성 가이드
+# guideline.md 생성 가이드
 
 이 문서는 Junie 설정을 통해 프로젝트에 필요한 guideline.md 파일을 생성하는 방법에 대한 상세한 안내입니다.
 
 ## 목차
 1. [개요](#개요)
 2. [사전 준비](#사전-준비)
-3. [Junie 설정 접근하기](#junie-설정-접근하기)
-4. [guideline.md 생성 방법](#guidelinemd-생성-방법)
-5. [고급 옵션 활용하기](#고급-옵션-활용하기)
-6. [문제 해결](#문제-해결)
+3. [guideline.md 생성 방법](#guidelinemd-생성-방법)
+4. [문제 해결](#문제-해결)
 
 ## 개요
 
@@ -23,84 +21,174 @@ guideline.md를 생성하기 전에 다음 사항을 확인하세요:
 3. 프로젝트가 열려 있어야 합니다.
 4. 프로젝트의 기본 구조가 설정되어 있어야 합니다.
 
-## Junie 설정 접근하기
 
-Junie 설정에 접근하는 방법은 다음과 같습니다:
 
-1. IntelliJ IDEA의 메인 메뉴에서 `Tools` > `Junie` > `Settings`를 선택합니다.
-2. 또는 단축키 `Ctrl+Alt+S`(Windows/Linux) 또는 `Cmd+,(콤마)`(macOS)를 눌러 IDE 설정을 연 다음, 왼쪽 패널에서 `Tools` > `Junie`를 선택합니다.
-3. 설정 화면에서 "Documentation" 탭을 선택합니다.
+
 
 ## guideline.md 생성 방법
 
-### 기본 방법
 
-1. Junie 설정에서 "Documentation" 탭을 선택합니다.
-2. "Generate Project Guidelines" 섹션을 찾습니다.
-3. "Generate" 버튼을 클릭합니다.
-4. 파일 저장 대화 상자에서 저장 위치를 선택합니다. 일반적으로 프로젝트 루트 디렉토리에 저장하는 것이 좋습니다.
-5. 파일 이름을 `guideline.md`로 지정하고 "Save" 버튼을 클릭합니다.
-6. 생성이 완료되면 생성된 파일이 자동으로 편집기에서 열립니다.
+### A. 일반 생성 방법
+1. root 경로에 있는 .junie 디렉토리 안에 guidelines.md 이름으로 파일을 생성합니다.
+![img_3.png](img_3.png)
+2. guidelines.md 안에 원하시는 스크립트를 넣어줍니다. (해당 스크립트로 Junie에게 규칙을 만들어줄 수 있습니다.)
 
-### 프로젝트 컨텍스트 메뉴를 통한 생성
 
-1. 프로젝트 창에서 프로젝트 루트 디렉토리 또는 원하는 폴더를 마우스 오른쪽 버튼으로 클릭합니다.
-2. 컨텍스트 메뉴에서 `Junie` > `Generate Documentation` > `Project Guidelines`를 선택합니다.
-3. 생성 옵션 대화 상자에서 필요한 설정을 조정하고 "Generate" 버튼을 클릭합니다.
-4. 생성된 `guideline.md` 파일이 선택한 위치에 저장되고 편집기에서 열립니다.
+2-1. Mastering Junie 기본 스크립트
 
-### 명령 팔레트를 통한 생성
+---
+      Please record in `.junie/guidelines.md` any relevant details that will aid future development on this project. This should include, but is not limited to:
+   
+      1. **Build/Configuration Instructions**: If specific build or configuration steps are required, provide clear and detailed instructions for setting up the project.
+   
+      2. **Testing Information**:
+         - Instructions for configuring and running tests.
+         - Guidelines on adding and executing new tests.
+         - Create and run a simple test to demonstrate the process.
+   
+      3. **Additional Development Information**: Information about the code style or any other information you believe would be useful for the development or debugging process.
 
-1. `Shift+Ctrl+A`(Windows/Linux) 또는 `Shift+Cmd+A`(macOS)를 눌러 명령 팔레트를 엽니다.
-2. "Junie Generate Guideline"을 입력합니다.
-3. 결과 목록에서 "Junie: Generate Project Guideline"을 선택합니다.
-4. 파일 저장 대화 상자에서 위치를 선택하고 "Save" 버튼을 클릭합니다.
+      **Important Notes**:
+         - This information is intended for an advanced developer; there's no need to include basic things, only information specific to this project.
+         - Сheck that the test examples work before writing the information to the file.
+         - At the end delete all additional files that you created except `.junie/guidelines.md`
 
-## 고급 옵션 활용하기
 
-guideline.md 생성 시 다음과 같은 고급 옵션을 활용할 수 있습니다:
+**2-2. 가위바위보 프로젝트 스크립트 예시**
 
-### 템플릿 선택
+---
+         # 가위바위보 프로젝트 개발 가이드라인
+         
+         ## 빌드/설정 지침
+         
+         ### 사전 요구사항
+         - JDK 11 이상
+           - Gradle 7.0+ (프로젝트에 Gradle 래퍼 포함됨)
+         
+         ### 프로젝트 빌드하기
+         이 프로젝트는 Gradle을 빌드 도구로 사용합니다. Gradle 래퍼가 포함되어 있으므로 Gradle을 별도로 설치할 필요가 없습니다.
+         
+         ```bash
+         # 프로젝트 빌드
+         .\gradlew build
+         
+         # 애플리케이션 실행
+         .\gradlew run
+         
+         # 빌드 디렉토리 정리
+         .\gradlew clean
+         ```
+         
+         ### 프로젝트 구조
+         - `src/main/java/org/example/` - 애플리케이션 소스 코드 포함
+            - `Main.java` - 게임 로직이 있는 메인 애플리케이션 클래스
+           - `src/test/java/org/example/` - 테스트 클래스 포함
+              - `MainTest.java` - Main 클래스에 대한 종합적인 테스트
+              - `DemoTest.java` - 테스트 패턴을 보여주는 예제 테스트
+         
+         ## 테스트 정보
+         
+         ### 테스트 실행하기
+         테스트는 Gradle 래퍼를 사용하여 실행할 수 있습니다:
+         
+         ```bash
+         # 모든 테스트 실행
+         .\gradlew test
+         
+         # 특정 테스트 클래스 실행
+         .\gradlew test --tests "org.example.MainTest"
+         
+         # 특정 테스트 메소드 실행
+         .\gradlew test --tests "org.example.MainTest.testChoiceNames"
+         ```
+         
+         ### 테스트 결과
+         테스트 결과는 테스트 실행 후 `build/reports/tests/test/index.html` 파일에서 확인할 수 있습니다. 이 파일을 웹 브라우저에서 열어 자세한 테스트 결과를 확인하세요.
+         
+         ### 새 테스트 추가하기
+         테스트는 JUnit 5를 사용합니다. 새 테스트를 추가할 때 다음 패턴을 따르세요:
+         
+         1. `src/test/java/org/example` 디렉토리에 새 테스트 클래스 생성
+            2. 적절한 JUnit 5 어노테이션 사용:
+               - `@Test` - 메소드를 테스트로 표시
+               - `@DisplayName` - 테스트에 사용자 정의 이름 제공
+               - `@RepeatedTest` - 테스트를 여러 번 실행 (무작위 동작 테스트에 유용)
+               - `@BeforeEach` / `@AfterEach` - 설정/정리 메소드
+               - `@Disabled` - 테스트 일시적으로 비활성화
+         
+            3. `org.junit.jupiter.api.Assertions` 클래스의 어서션 메소드 사용
+               - `assertEquals` - 동등성 확인
+               - `assertTrue` / `assertFalse` - 불리언 조건 확인
+               - `assertNotNull` / `assertNull` - 객체 존재 확인
+               - `assertThrows` - 예외 발생 확인
+         
+         ### 테스트 예제
+         
+         다음은 가위바위보 게임에 대한 간단한 테스트 예제입니다:
+         
+         ```java
+         @Test
+         @DisplayName("Choice 열거형이 올바른 요소 수를 가지는지 확인")
+         public void testChoiceEnumCount() {
+             assertEquals(3, Main.Choice.values().length, "Choice 열거형은 정확히 3개의 요소를 가져야 합니다");
+         }
+         
+         @Test
+         @DisplayName("getRandomChoice가 null이 아닌 값을 반환하는지 확인")
+         public void testRandomChoice() {
+             Main.Choice choice = Main.Choice.getRandomChoice();
+             assertNotNull(choice, "무작위 선택은 null이 아니어야 합니다");
+             System.out.println("[DEBUG_LOG] 생성된 무작위 선택: " + choice.getKorean());
+         }
+         ```
+         
+         ### 테스트 디버깅
+         `System.out.println()`에 `[DEBUG_LOG]` 접두사를 사용하여 테스트에 디버그 로깅을 추가하세요:
+         
+         ```java
+         System.out.println("[DEBUG_LOG] 디버그 메시지");
+         ```
+         
+         ## 추가 개발 정보
+         
+         ### 코드 스타일
+         이 프로젝트는 표준 Java 코딩 규칙을 따릅니다:
+         - 클래스 이름은 파스칼 케이스 사용 (예: `MainTest`)
+           - 메소드 이름은 카멜 케이스 사용 (예: `determineWinner`)
+           - 상수는 대문자 스네이크 케이스 사용 (예: `ROCK`, `PAPER`, `SCISSORS`)
+         
+         ### 게임 아키텍처
+         - 게임은 선택지(`Main.Choice`)와 결과(`Main.GameResult`)를 나타내는 열거형 사용
+           - 게임 로직은 `determineWinner` 메소드에 구현됨
+           - 메인 게임 루프는 사용자 입력, 게임 상태, 점수 추적을 처리
+         
+         ### 일반적인 개발 작업
+         
+         #### 새 게임 선택지 추가하기
+         게임에 새 선택지를 추가하는 방법:
+         1. `Main.Choice`에 새 열거형 값 추가
+            2. 새 선택지를 처리하도록 `fromInt` 메소드 업데이트
+            3. 새 선택지를 게임 로직에 포함하도록 `determineWinner` 메소드 업데이트
+            4. 테스트 클래스에 해당하는 테스트 추가
+         
+         #### 게임 메시지 수정하기
+         게임 메시지를 수정하는 방법:
+         1. `Main.Choice` 또는 `Main.GameResult`의 열거형 생성자 매개변수 업데이트
+            2. 메시지 내용을 확인하는 해당 테스트 업데이트
+         
+         ### 성능 고려사항
+         - 무작위 선택 생성은 이 애플리케이션에 적합한 `java.util.Random`을 사용합니다
+           - 프로덕션 등급 애플리케이션의 경우 성능이나 보안을 위해 `ThreadLocalRandom` 또는 `SecureRandom` 사용을 고려하세요
+---
 
-Junie는 다양한 프로젝트 유형에 맞는 템플릿을 제공합니다:
 
-1. 생성 대화 상자에서 "Template" 드롭다운 메뉴를 클릭합니다.
-2. 프로젝트 유형에 맞는 템플릿을 선택합니다:
-   - **Standard**: 일반적인 프로젝트에 적합한 기본 템플릿
-   - **Detailed**: 자세한 가이드라인이 필요한 대규모 프로젝트용
-   - **Minimal**: 간결한 가이드라인이 필요한 소규모 프로젝트용
-   - **Java-specific**: Java 프로젝트에 특화된 템플릿
-   - **Web-specific**: 웹 프로젝트에 특화된 템플릿
-   - **Custom**: 사용자 정의 템플릿
+### B. Mastering Junie 로 생성하는 방법
+1. Junie를 활성화 시킨 후 `Mastering Junie` 탭을 누릅니다.
 
-### 콘텐츠 사용자 정의
+   ![img_2.png](img_2.png)
 
-1. 생성 대화 상자에서 "Customize Content" 체크박스를 선택합니다.
-2. 포함할 섹션을 선택합니다:
-   - 코드 스타일 가이드
-   - 프로젝트 구조 설명
-   - 기여 방법
-   - 문서화 규칙
-   - 테스트 규칙
-   - 버전 관리 워크플로우
+2. `1.Generate project-specific guidelines`버튼을 누릅니다.
 
-### 프로젝트 분석 기반 생성
-
-Junie는 현재 프로젝트를 분석하여 최적화된 가이드라인을 생성할 수 있습니다:
-
-1. 생성 대화 상자에서 "Analyze Project" 체크박스를 선택합니다.
-2. "Analysis Depth" 슬라이더를 조정하여 분석 깊이를 설정합니다.
-3. "Generate" 버튼을 클릭합니다.
-4. 분석이 완료되면 프로젝트 구조, 코드 스타일, 사용 중인 라이브러리 등을 기반으로 맞춤형 guideline.md가 생성됩니다.
-
-### 가이드라인 자동 업데이트 설정
-
-프로젝트가 발전함에 따라 가이드라인도 자동으로 업데이트되도록 설정할 수 있습니다:
-
-1. 생성 완료 후 Junie 설정으로 이동합니다.
-2. "Documentation" 탭에서 "Auto-update Guidelines" 체크박스를 선택합니다.
-3. 업데이트 주기를 선택합니다 (매일, 매주, 또는 프로젝트 구조 변경 시).
-4. "Apply" 또는 "OK"를 클릭하여 설정을 저장합니다.
 
 ## 문제 해결
 
