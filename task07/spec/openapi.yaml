@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Example Contract-first API
+  version: 0.1.0
+  description: >-
+    Skeleton OpenAPI spec for Task 07. Extend with actual endpoints and schemas.
+servers:
+  - url: https://api.example.com
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      description: RFC 7807 Problem Details
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
