@@ -9,7 +9,12 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: Build
-        run: ./gradlew build --no-daemon
-      - name: Test
-        run: ./gradlew test --no-daemon
+      - name: Compile Java
+        shell: bash
+        run: |
+          find . -name "*.java" > sources.txt
+          javac -d out @sources.txt
+      - name: Golden Test
+        shell: bash
+        run: java -cp out com.example.tests.golden.GoldenTestRunner
+
