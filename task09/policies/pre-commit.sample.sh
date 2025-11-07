@@ -18,4 +18,17 @@ if git diff --cached | grep -E "\+.*(TODO|FIXME)"; then
 fi
 
 # 3) Fast checks (format/lint/test subset) – customize per project
-./gradlew.bat -q test
+# 프로젝트 빌드 도구를 자동 감지하여 빠른 테스트를 실행합니다.
+if [ -x "./gradlew" ]; then
+  ./gradlew -q test
+elif [ -f "./gradlew.bat" ]; then
+  ./gradlew.bat -q test
+elif [ -x "./mvnw" ]; then
+  ./mvnw -q -DskipTests=false test
+elif command -v mvn >/dev/null 2>&1; then
+  mvn -q -DskipTests=false test
+elif [ -f "package.json" ] && command -v npm >/dev/null 2>&1; then
+  npm test --silent --if-present
+else
+  echo "[INFO] No recognized build tool found; skipping tests"
+fi
