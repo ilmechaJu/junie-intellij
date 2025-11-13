@@ -17,21 +17,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Java example (adjust or replace for your stack)
+      # Java 설정 (adjust or replace for your stack)
       - name: Set up Java (optional)
         if: ${{ hashFiles('**/gradlew', '**/gradlew.bat', '**/build.gradle*') != '' }}
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-
+      # 정적 어플리케이션 보안 테스팅 SAST
       - name: SAST (SpotBugs sample)
         if: ${{ hashFiles('**/gradlew', '**/gradlew.bat') != '' }}
         run: |
           chmod +x ./gradlew || true
           ./gradlew spotbugsMain --no-daemon || true
-
-      - name: Dependency Audit (OWASP Dependency-Check)
+      # 의존성 감사
+      - name: Dependency Audit (OWASP 의존성 검사)
         if: ${{ hashFiles('**/gradlew', '**/gradlew.bat') != '' }}
         run: |
           ./gradlew dependencyCheckAnalyze --no-daemon || true
