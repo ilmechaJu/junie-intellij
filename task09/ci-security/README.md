@@ -27,11 +27,11 @@
          - Push cannot contain secrets
          - To push, remove secret from commit(s) or follow this URL to allow the secret.
          - 그 아래에 https://github.com/.../security/secret-scanning/unblock-secret/... 형태의 링크가 나옵니다.
-           ![img_1.png](Readme%20images/img_1.png)
+           ![img_1.png](img_1.png)
          - 이 링크가 바로 “allow the secret” 우회 링크입니다. 링크를 클릭(또는 복사해서 브라우저 주소창에 붙여넣기)하세요.
 
    2) GitHub에서 우회 승인하기
-      ![img.png](Readme%20images/img.png)
+      ![img.png](img.png)
       - 브라우저가 열리면 GitHub 로그인 화면이 나올 수 있습니다. 로그인 후 진행하세요.
       - 페이지 제목/내용 예시:
         - Secret type(예: Slack API Token)
@@ -47,7 +47,7 @@
       git push origin main
     - 이제는 같은 커밋이 통과되어 푸시됩니다.
     - 푸시가 완료되면 GitHub Actions의 보안 파이프라인이 자동으로 실행됩니다.
-    ![img_2.png](Readme%20images/img_2.png)
+    ![img_2.png](img_2.png)
    
 로컬에서 테스트하기
 - Secret Scan: `gitleaks detect --source . --redact`
