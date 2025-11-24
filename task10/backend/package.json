@@ -1,0 +1,23 @@
+{
+  "name": "task10-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Task10 E2E backend (Express + SQLite + Prometheus metrics)",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "migrate": "node scripts/migrate.js up",
+    "rollback": "node scripts/migrate.js down",
+    "backfill": "node scripts/backfill_due_date.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "better-sqlite3": "9.4.3",
+    "cors": "2.8.5",
+    "express": "4.19.2",
+    "morgan": "1.10.0",
+    "prom-client": "15.1.3"
+  }
+}

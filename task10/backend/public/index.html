@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task10 Todo 앱</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>할 일 목록 (E2E Demo)</h1>
+  </header>
+  <main>
+    <section class="create">
+      <input id="title" placeholder="할 일을 입력하세요" />
+      <input id="dueDate" type="datetime-local" />
+      <button id="createBtn">추가</button>
+      <span id="error" class="error"></span>
+    </section>
+    <section>
+      <table id="todos">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>제목</th>
+            <th>마감</th>
+            <th>완료</th>
+            <th>액션</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+  <footer>
+    <a href="/metrics" target="_blank">/metrics</a> · <a href="/healthz" target="_blank">/healthz</a>
+  </footer>
+  <script src="/app.js"></script>
+</body>
+</html>

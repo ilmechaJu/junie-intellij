@@ -1,0 +1,14 @@
+# ZAP Baseline rules override (TSV)
+# Format: <rule-id>\t<status>
+# status: IGNORE | WARN | FAIL
+# Use IGNORE sparingly. Prefer fixing or WARN.
+
+# Common headers (often WARN in early stages)
+10020	WARN   # X-Frame-Options header not set
+10021	WARN   # X-Content-Type-Options header missing
+10015	WARN   # Incomplete or No Cache-control and Pragma HTTP Header Set
+10038	WARN   # Content Security Policy (CSP) Header Not Set
+10055	WARN   # X-Content-Security-Policy (depreciated) Header
+
+# Example of ignoring known non-issues during local testing (remove later)
+# 10010	IGNORE # Information disclosure - debug error messages

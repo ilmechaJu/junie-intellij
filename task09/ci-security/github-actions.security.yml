@@ -1,0 +1,72 @@
+# Copy this file to .github/workflows/security.yml in your project
+name: Security Pipeline
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  sast_deps_secrets:
+    name: SAST + Dependencies + SBOM + Secrets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Java 설정 (adjust or replace for your stack)
+      - name: Set up Java (optional)
+        if: ${{ hashFiles('**/gradlew', '**/gradlew.bat', '**/build.gradle*') != '' }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      # 정적 어플리케이션 보안 테스팅 SAST
+      - name: SAST (SpotBugs sample)
+        if: ${{ hashFiles('**/gradlew', '**/gradlew.bat') != '' }}
+        run: |
+          chmod +x ./gradlew || true
+          ./gradlew spotbugsMain --no-daemon || true
+      # 의존성 감사
+      - name: Dependency Audit (OWASP 의존성 검사)
+        if: ${{ hashFiles('**/gradlew', '**/gradlew.bat') != '' }}
+        run: |
+          ./gradlew dependencyCheckAnalyze --no-daemon || true
+          mkdir -p build/reports || true
+          ls -al build/reports || true
+
+      - name: SBOM (CycloneDX)
+        if: ${{ hashFiles('**/gradlew', '**/gradlew.bat') != '' }}
+        run: ./gradlew cyclonedxBom --no-daemon || true
+
+      - name: Secret Scan (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: "detect --source . --redact --report-path gitleaks-report.json --report-format json"
+
+      - name: Upload artifacts (reports)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: |
+            build/reports/**
+            gitleaks-report.json
+
+  dast:
+    name: DAST (OWASP ZAP Baseline)
+    runs-on: ubuntu-latest
+    needs: sast_deps_secrets
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Start your app here if needed, e.g. docker compose up -d
+      - name: ZAP Baseline
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: "http://localhost:8080"
+          rules_file_name: "ci-security/zap-rules.tsv"
+      # Stop app if started, e.g. docker compose down -v

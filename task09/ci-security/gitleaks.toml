@@ -1,0 +1,18 @@
+# Task09 gitleaks template configuration (beginner-friendly)
+# This file extends the default gitleaks rules and adds a small allowlist
+# for sample files in this repository. Adjust paths to your project.
+
+title = "Task09 gitleaks template"
+extends = "gitleaks:latest"
+
+[allowlist]
+description = "Allow sample hooks and CI templates (do not allow real secrets)."
+paths = [
+  "task09/policies/pre-commit.sample.sh",
+  "task09/policies/pre-commit.sample.ps1",
+  "task09/ci-security/github-actions.security.yml",
+]
+
+# Tip:
+# - Prefer to fix false positives via more precise rules or path scoping.
+# - Avoid allowlisting entire directories with real source code.

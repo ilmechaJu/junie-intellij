@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Example Contract-first API
+  version: 0.1.0
+  description: >-
+    Skeleton OpenAPI spec for Task 07. Extend with actual endpoints and schemas.
+servers:
+  - url: http://localhost:8080
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-request-id:
+              description: Correlation ID for tracing
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum: [ok]
+          example: ok
+    ProblemDetails:
+      type: object
+      description: RFC 7807 Problem Details
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+  responses:
+    ServerError:
+      description: Server error
+      headers:
+        Retry-After:
+          description: Clients may retry after this many seconds when present
+          schema:
+            type: integer
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
