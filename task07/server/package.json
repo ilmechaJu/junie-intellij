@@ -1,0 +1,25 @@
+{
+  "name": "task07-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node --enable-source-maps dist/index.js",
+    "build": "tsc -p tsconfig.json",
+    "lint": "echo 'no linter configured'"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-openapi-validator": "^5.4.4",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.7.4",
+    "mrmime": "^2.0.0",
+    "tsx": "^4.19.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.6.3"
+  }
+}

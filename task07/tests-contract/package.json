@@ -1,0 +1,22 @@
+{
+  "name": "task07-tests-contract",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "tsx src/contract.test.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "supertest": "^7.0.0",
+    "yaml": "^2.5.1"
+  },
+  "devDependencies": {
+    "@types/supertest": "^2.0.16",
+    "@types/node": "^22.7.4",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.3"
+  }
+}
