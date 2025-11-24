@@ -1,0 +1,24 @@
+groups:
+  - name: task10.slo
+    rules:
+      - alert: Task10HighErrorRate
+        expr: sum(rate(http_requests_total{service="task10-backend",code=~"5.."}[5m]))
+              /
+              sum(rate(http_requests_total{service="task10-backend"}[5m])) > 0.05
+        for: 10m
+        labels:
+          severity: page
+          owner: team-app
+        annotations:
+          summary: "Task10 백엔드 오류율이 5% 초과"
+          description: "최근 10분간 5xx 비율이 5%를 초과했습니다. 즉시 원인 파악 필요."
+
+      - alert: Task10HighLatency
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{service="task10-backend"}[5m])) by (le)) > 1
+        for: 10m
+        labels:
+          severity: ticket
+          owner: team-app
+        annotations:
+          summary: "Task10 백엔드 p95 지연이 1s 초과"
+          description: "최근 10분간 p95 latency > 1s. 성능 이슈 점검 필요."
