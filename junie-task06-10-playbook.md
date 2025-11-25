@@ -1,6 +1,11 @@
 # Junie Task 06~10 플레이북
 
-이 문서는 Task 06~10을 Junie와 “대화형”으로 수행하기 위한 실전 프롬프트 가이드이자 체크리스트입니다. 팀/개인 모두가 동일한 방식으로 요청·피드백·반복 루프를 돌릴 수 있도록, 공통 규칙과 과제별 프롬프트 템플릿을 제공합니다.
+이 문서는 Junie를 현업에서 자주 활용되는, 프로젝트를 수행하기 위한 실전 프롬프트 가이드이자 체크리스트입니다.
+
+- [공통 운영 규칙](#common-rules) 공통 운영 규칙을 통해, 팀/개인 모두가 동일한 방식으로 요청·피드백·반복 루프를 돌릴 수 있도록, 
+공통 규칙을 설정하는 법을 익힐 수 있습니다.
+- [task06~task10](#tasks-06-10)을 통해서는, junie를 고급활용 해볼 수 있는 프로젝트를 진행합니다.
+
 
 ## 문서 배치/구조
 - 본 파일 위치: 루트 `junie-task06-10-playbook.md` (필요 시 `README.md`에서 링크)
@@ -10,6 +15,9 @@
   - `docs/adr/ADR-YYYYMMDD-<title>.md`
   - `docs/impact/IMPACT-task-template.md`
   - `docs/migrations/MIG-template.md`
+
+
+<a id="common-rules"></a>
 
 ## 공통 운영 규칙
 - 브랜치: `main`(완료물), `feat/task-0X-<short-title>`(작업)
@@ -82,6 +90,8 @@ Consequences: <부채/리스크/마이그레이션>
 ```
 
 ---
+
+<a id="tasks-06-10"></a>
 
 ## Task 06 — 레거시 리팩터링 & 회귀 테스트: 대화형 가이드
 ### 목표 프롬프트(킥오프)
