@@ -1,6 +1,22 @@
 # Task 06 — 레거시 모듈 리팩터링 & 회귀 테스트 자동화
 
-목표
+task06 문서 활용법
+- [Golden-Test-README.md](Golden-Test-README.md) 
+  - ci-example.yml 를 만드는 가이드 입니다. 현재 yml파일은 example 형태이며, 실제로 사용할 만한 yml로 만들기 위해서 Junie는 해당문서를 참조해 ci-example.yml 내용을 보강합니다.
+- [LEGACY_CODE_DOCUMENTATION.md](LEGACY_CODE_DOCUMENTATION.md)
+  - 아래의 5가지 레거시 코드들에 대한 설명입니다. 
+    - [InventoryService.java](src/main/java/com/example/legacy/InventoryService.java)
+    - [Main.java](src/main/java/com/example/legacy/Main.java)
+    - [NotificationService.java](src/main/java/com/example/legacy/NotificationService.java)
+    - [OrderProcessor.java](src/main/java/com/example/legacy/OrderProcessor.java)
+    - [PaymentService.java](src/main/java/com/example/legacy/PaymentService.java)
+    - 위 5가지 레거시 코드들이 
+      - 어떤 종류의 레거시 코드인지 설명하는 문서입니다. 
+      - 어떤 구조로 의존성 관계가 맺어져 있는지 설명하는 문서입니다. 
+      - Refactoring 이후 예상 구조에 관한 내용도 설명하는 문서입니다.
+
+
+Task06의 목표
 - 복잡한 스파게티 코드를 모듈화하고 회귀 방지 테스트 자동화
 
 성공 지표(예)

@@ -2,6 +2,8 @@
 
 이 프로젝트는 IntelliJ IDEA에서 Junie 플러그인을 활용하여 다양한 개발 작업을 수행하는 방법을 학습하기 위한 가이드입니다. Task 01부터 Task 10까지 단계별로 구성되어 있으며, 각 task는 점진적으로 난이도가 증가하는 구조로 되어 있습니다.
 
+
+
 ## 프로젝트 구성
 
 ### Task 01: IntelliJ IDEA에서 Junie 플러그인 사용 가이드
@@ -42,6 +44,9 @@ Junie 설정에서 MCP(Model Checkpoint Protocol)를 연동하는 방법을 학�
 
 - **주요 내용**: MCP 개요, 프로젝트 구조 설정, .junie 디렉토리 설정, mcp.json 파일 구성, GitHub MCP 연동, 연동 테스트 및 확인
 - **학습 목표**: AI 모델 체크포인트를 관리하고 버전 제어하며, GitHub와 연동하여 협업 작업을 지원할 수 있습니다.
+---
+
+**[Task 06~Task 10 사용시 참조문서]** : [junie-task06-10-playbook.md](junie-task06-10-playbook.md)
 
 ### Task 06: 레거시 모듈 리팩터링 & 회귀 테스트 자동화
 
