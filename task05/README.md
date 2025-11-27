@@ -95,215 +95,53 @@ my-project/                    # 프로젝트 루트 디렉토리
 
 ## mcp.json 파일 구성
 
-MCP 연동을 위해 `.junie` 디렉토리 내에 `mcp.json` 파일을 생성해야 합니다:
+1. MCP 연동을 위해 Settings를 열어줍니다.
 
-1. `.junie` 디렉토리를 마우스 오른쪽 버튼으로 클릭합니다.
-2. `New` > `File`을 선택합니다.
-3. `mcp.json`이라는 이름을 입력하고 `OK`를 클릭합니다.
+    ![img.png](img.png)
+2. '+' 버튼을 눌러 MCP 설정을 열어줍니다.
 
-### 기본 mcp.json 구성
+    ![img_1.png](img_1.png)
 
-`mcp.json` 파일에는 다음과 같은 기본 구성이 포함되어야 합니다:
+3. Github MCP 구성을 위해 아래와 같이 json 스크립트를 넣어줍니다.
+
+    ![img_2.png](img_2.png)
+
+### 기본 Github mcp.json 스크립트
+
+'github mcp'를 위해 다음과 같은 기본 구성이 포함되어야 합니다:
 
 ```json
 {
-  "version": "1.0",
-  "provider": "github",
-  "settings": {
-    "repository": "username/repo-name",
-    "branch": "main",
-    "path": "models",
-    "auth": {
-      "type": "token",
-      "token": "${env:GITHUB_TOKEN}"
+  "mcpServers": {
+    "github": {
+      "command": "<docker.exe가 있는 경로>",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<Github 토큰 값(PAT)>"
+      }
     }
-  },
-  "models": [
-    {
-      "name": "my-model",
-      "version": "1.0.0",
-      "description": "My trained model",
-      "path": "my-model/latest"
-    }
-  ],
-  "cache": {
-    "location": "${project}/.junie/models",
-    "ttl": 86400
   }
 }
 ```
 
-### mcp.json 필드 설명
-
-- **version**: MCP 구성 파일의 버전
-- **provider**: 모델 저장소 제공자 (github, local, s3 등)
-- **settings**: 제공자별 설정
-  - **repository**: GitHub 저장소 이름 (username/repo-name 형식)
-  - **branch**: 사용할 Git 브랜치
-  - **path**: 저장소 내 모델 디렉토리 경로
-  - **auth**: 인증 정보
-    - **type**: 인증 유형 (token, ssh, basic)
-    - **token**: GitHub 개인 액세스 토큰 (환경 변수에서 가져오는 것이 안전)
-- **models**: 사용할 모델 목록
-  - **name**: 모델 이름
-  - **version**: 모델 버전
-  - **description**: 모델 설명
-  - **path**: 모델 파일 경로
-- **cache**: 로컬 캐시 설정
-  - **location**: 캐시 위치 (상대 경로 또는 절대 경로)
-  - **ttl**: 캐시 유효 시간(초)
-
-## GitHub MCP 연동
-
-GitHub와 MCP를 연동하기 위한 단계별 가이드입니다:
-
-### 1. GitHub 저장소 생성
-
-1. GitHub에 로그인합니다.
-2. 새 저장소를 생성합니다:
-   - 오른쪽 상단의 + 아이콘을 클릭하고 "New repository"를 선택합니다.
-   - 저장소 이름을 입력합니다 (예: "junie-mcp-models").
-   - 필요에 따라 설명을 추가합니다.
-   - 저장소를 Public 또는 Private으로 설정합니다.
-   - "Create repository" 버튼을 클릭합니다.
-
-### 2. GitHub 개인 액세스 토큰 생성
-
-1. GitHub 계정 설정으로 이동합니다:
-   - 오른쪽 상단의 프로필 아이콘을 클릭합니다.
-   - "Settings"를 선택합니다.
-2. 왼쪽 사이드바에서 "Developer settings"를 클릭합니다.
-3. "Personal access tokens"를 클릭하고 "Tokens (classic)"을 선택합니다.
-4. "Generate new token"을 클릭하고 필요한 경우 "Generate new token (classic)"을 선택합니다.
-5. 토큰 이름을 입력합니다 (예: "Junie MCP Token").
-6. 다음 권한을 선택합니다:
-   - `repo` (모든 저장소 권한)
-   - `read:packages` (패키지 읽기 권한)
-   - `write:packages` (패키지 쓰기 권한)
-7. "Generate token" 버튼을 클릭합니다.
-8. 생성된 토큰을 안전한 곳에 저장합니다 (이 페이지를 벗어나면 다시 볼 수 없습니다).
-
-### 3. 환경 변수 설정
-
-GitHub 토큰을 환경 변수로 설정하여 보안을 유지합니다:
-
-#### Windows에서:
-1. 시스템 속성 > 고급 > 환경 변수를 엽니다.
-2. 사용자 변수 섹션에서 "새로 만들기"를 클릭합니다.
-3. 변수 이름에 `GITHUB_TOKEN`을 입력합니다.
-4. 변수 값에 생성한 GitHub 토큰을 입력합니다.
-5. "확인"을 클릭하여 저장합니다.
-
-#### macOS/Linux에서:
-1. ~/.bash_profile 또는 ~/.zshrc 파일을 편집합니다:
-   ```
-   nano ~/.bash_profile
-   ```
-   또는
-   ```
-   nano ~/.zshrc
-   ```
-2. 다음 줄을 추가합니다:
-   ```
-   export GITHUB_TOKEN="your-token-here"
-   ```
-3. 파일을 저장하고 터미널을 다시 시작하거나 다음 명령어를 실행합니다:
-   ```
-   source ~/.bash_profile
-   ```
-   또는
-   ```
-   source ~/.zshrc
-   ```
-
-### 4. mcp.json 파일 업데이트
-
-생성한 GitHub 저장소와 연동하도록 mcp.json 파일을 업데이트합니다:
-
-```json
-{
-  "version": "1.0",
-  "provider": "github",
-  "settings": {
-    "repository": "your-username/junie-mcp-models",
-    "branch": "main",
-    "path": "models",
-    "auth": {
-      "type": "token",
-      "token": "${env:GITHUB_TOKEN}"
-    }
-  },
-  "models": [
-    {
-      "name": "example-model",
-      "version": "1.0.0",
-      "description": "Example model for Junie MCP",
-      "path": "example-model/latest"
-    }
-  ],
-  "cache": {
-    "location": "${project}/.junie/models",
-    "ttl": 86400
-  }
-}
-```
-
-`your-username`을 실제 GitHub 사용자 이름으로 바꿉니다.
-
-### 5. 모델 디렉토리 구조 생성
-
-GitHub 저장소에 다음과 같은 구조를 생성합니다:
-
-```
-junie-mcp-models/
-└── models/
-    └── example-model/
-        └── latest/
-            ├── model.bin
-            └── metadata.json
-```
-
-1. 저장소를 로컬에 클론합니다:
-   ```
-   git clone https://github.com/your-username/junie-mcp-models.git
-   ```
-
-2. 필요한 디렉토리 구조를 생성합니다:
-   ```
-   cd junie-mcp-models
-   mkdir -p models/example-model/latest
-   ```
-
-3. 간단한 metadata.json 파일을 생성합니다:
-   ```json
-   {
-     "name": "example-model",
-     "version": "1.0.0",
-     "created": "2025-09-12T00:00:00Z",
-     "framework": "junie",
-     "description": "Example model for Junie MCP",
-     "author": "Your Name",
-     "license": "MIT"
-   }
-   ```
-
-4. 변경 사항을 커밋하고 푸시합니다:
-   ```
-   git add .
-   git commit -m "Initial model structure"
-   git push origin main
-   ```
 
 ## 연동 테스트 및 확인
 
 Junie와 MCP 연동이 제대로 작동하는지 확인합니다:
 
 ### 1. IntelliJ IDEA에서 Junie 설정 확인
-
-1. IntelliJ IDEA에서 `Tools` > `Junie` > `Settings`를 선택합니다.
+![img_4.png](img_4.png)
+1. IntelliJ IDEA에서 junie 를 오른쪽 마우스 클릭으로 Setting에 들어가 `Tools` > `Junie` > `Settings`를 선택합니다.
 2. "Model" 또는 "MCP" 탭을 선택합니다.
-3. "Refresh Models" 또는 "Sync MCP" 버튼을 클릭합니다.
-4. 설정된 모델이 목록에 표시되는지 확인합니다.
+3. 설정된 모델이 목록에 표시되는지 확인합니다.
+![img_3.png](img_3.png)
 
 ### 2. Junie 명령을 통한 확인
 
