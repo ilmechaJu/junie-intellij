@@ -1,0 +1,12 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 질문 및 토론
+    url: https://github.com/Ai-Advanced/AI_assistant_advanced/discussions
+    about: 버그나 기능 요청이 아닌 일반적인 질문은 Discussions를 이용해주세요
+  - name: 📖 프로젝트 문서
+    url: https://github.com/Ai-Advanced/AI_assistant_advanced/tree/main/docs
+    about: 프로젝트 문서와 가이드를 먼저 확인해주세요
+  - name: 🔍 기존 이슈 검색
+    url: https://github.com/Ai-Advanced/AI_assistant_advanced/issues?q=is%3Aissue
+    about: 이미 보고된 이슈인지 먼저 검색해주세요
+
